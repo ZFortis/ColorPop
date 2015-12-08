@@ -6,6 +6,7 @@
 #include<iostream>
 #include<sstream>
 #include<string>
+#include<vector>
 #include<time.h>
 #include<cmath>
 #include"SDL_Enemy.h"
@@ -13,7 +14,7 @@
 
 using namespace std;
 
-typedef struct
+/*typedef struct
 {
 	int x;
 	int y;
@@ -22,7 +23,17 @@ typedef struct
 	SDL_Enemy enemy;
 	SDL_Sprite enemsmall;
 	bool iflife;
+}position;*/
+
+typedef struct
+{
+	int x;
+	int y;
+	int time;
+	bool ifbe;
+	SDL_Enemy enemy;
 }position;
+const int REFRESH_TIME=500;
 const int FRAMES_PER_SECOND = 60;
 const int SCREEN_WIDTH = 480;
 const int SCREEN_HIGHT = 640;
@@ -74,24 +85,18 @@ int main(int argc, char* args[])
 	int score = 0;
 	name = "consola.ttf";
 	TTF_Font *font = TTF_OpenFont(name.c_str(), 50);
-	if (!font)
-	{
-		printf_s("%s", TTF_GetError());
-		//return 0;
-		// handle error
-	}
+	int killI;
 	int countsb = 0;
 	SDL_Texture*textexture = RenderText(font, renderer, "Score: ", score, 50);
 	SDL_Texture*textextureend = RenderText(font, renderer, "Score: ", score, 100);
 	SDL_Sprite bg, bg2, pop, begin_1, begin_2, logo, restart;
 	SDL_Sprite herosmall, boom;
 	SDL_Hero hero;
-	SDL_Enemy enemy[3];
 	SDL_Event e;
 	SDL_Background cbg,cbg1,cbg2;
 	Uint32 start = 0;
 	int cbgStart = 0;
-	position pos[8];
+	/*position pos[8];
 	for (int i = 50, j = 0; j<8; i += 55, j++)
 	{
 		pos[j].x = i;
@@ -99,21 +104,25 @@ int main(int argc, char* args[])
 		pos[j].time = 0;
 		pos[j].ifbe = false;
 
-		/*¼ÓÔØÆÆÁÑÍ¼Æ¬*/
+		/*¼ÓÔØÆÆÁÑÍ¼Æ¬
 		boom.loadImage(renderer, "PopSpriteBoom.png");
 		boom.setSprite(4,100, 100);
 
-		/*¼ÓÔØµÐÈË*/
+		/*¼ÓÔØµÐÈË
 		pos[j].enemy.loadImage(renderer, "PopSprite.png");
 		pos[j].enemy.setSprite(4, 100, 100);
 
-		/*¼ÓÔØÐ¡µÐÈË*/
-		pos[j].enemsmall.loadImage(renderer, "PopSpriteSmall.png");
-		pos[j].enemsmall.setSprite(4, 95, 95);
-
 		pos[j].iflife = false;
-	}
-
+	}*/
+	int posX[4] = { 0, 105, 210, 315 };
+	int posY[2] = { -100, -205 };
+	vector<SDL_Enemy> pos;
+	int enemyTime;
+	int enemyCount = 0;
+	int enemyBaseSpeed = 6;
+	int enemySpeed = enemyBaseSpeed;
+	int enemyBaseMaxCount = 3;
+	int enemyMaxCount = enemyBaseMaxCount;
 	int mouseX = 0, mouseY = 0;
 	bool quite = false;
 	bool begin = false;
@@ -122,46 +131,7 @@ int main(int argc, char* args[])
 	hero.loadImage(renderer, "PopSprite.png");
 	hero.setSprite(4, 100, 100);
 
-	//	int score;
-	for (int i = 0; i < 3; i++)
-	{
-		enemy[i].loadImage(renderer, "PopSprite.png");
-		enemy[i].setSprite(4, 100, 100);
-	}
-	/*²Ã¼ô¾«ÁéÍ¼Æ¬*/
-	SDL_Rect clip1[4];
-	for (int i = 0; i < 4; i++)
-	{
-		clip1[i].x = i * 100;
-		clip1[i].y = 0;
-		clip1[i].w = 100;
-		clip1[i].h = 100;
-	}
-	SDL_Rect clip2[4];
-	for (int i = 0; i < 4; i++)
-	{
-		clip2[i].x = i * 100;
-		clip2[i].y = 0;
-		clip2[i].w = 100;
-		clip2[i].h = 100;
-	}
-	SDL_Rect sclip1[4];
-	for (int i = 0; i < 4; i++)
-	{
-		sclip1[i].x = i * 97;
-		sclip1[i].y = 0;
-		sclip1[i].w = 97;
-		sclip1[i].h = 97;
-	}
-	SDL_Rect sclip2[4];
-	for (int i = 0; i < 4; i++)
-	{
-		sclip2[i].x = i * 97;
-		sclip2[i].y = 0;
-		sclip2[i].w = 97;
-		sclip2[i].h = 97;
-	}
-
+	
 	/*¼ÓÔØ±³¾°Í¼Æ¬*/
 	bg.loadImage(renderer, "bg_05.jpg");
 	bg2.loadImage(renderer, "bg_05.jpg");
@@ -191,10 +161,6 @@ int main(int argc, char* args[])
 
 	cbg1.setSpritePosition(0, 0);
 	cbg2.setSpritePosition(0, -1280);
-
-	/*¼ÓÔØÐ¡Ö÷½Ç*/
-	herosmall.loadImage(renderer, "PopSprite.png");
-	herosmall.setSprite(4, 95, 95);
 
 	//cbg.setRect(0, 0, SCREEN_WIDTH, SCREEN_HIGHT);
 
@@ -231,6 +197,7 @@ int main(int argc, char* args[])
 							start = SDL_GetTicks();
 							score = 0;
 							begin = true;
+							enemyTime = SDL_GetTicks();
 						}
 					}
 				}
@@ -349,6 +316,7 @@ int main(int argc, char* args[])
 		}
 		}
 		}*/
+
 		//ScollBackground(renderer, &bg, &bg2);
 		//ScollBackground(renderer, &cbg1, &cbg2);
 		if (cbgStart == 0)
@@ -365,20 +333,7 @@ int main(int argc, char* args[])
 			cbgStart = SDL_GetTicks();
 		}
 		
-		/*for (auto &a : pos)
-		{
-		if (a.ifbe&&!a.iflife)
-		{
-		a.iflife = true;
-		a.enemy.Randomcolor();
-		a.enemy.x = a.x;
-		a.enemy.y = a.y;
-		a.enemy.SetLive();
-		a.enemy.SetAi(hero);
-		a.enemy.TextureRenderer(renderer, clip2, a.x, a.y);
-		}
-		}*/
-		for (int i = 0; i < 3; i++)
+		/*for (int i = 0; i < 3; i++)
 		{
 			posflag[i] = rondom();
 			cout << posflag[i] << endl;
@@ -425,9 +380,9 @@ int main(int argc, char* args[])
 					}
 				}
 			}
-		}
+		}*/
 
-		if (pos[n].ifbe&&!pos[n].iflife)
+	/*	if (pos[n].ifbe&&!pos[n].iflife)
 		{
 			cout << "................................................." << endl;
 			pos[n].iflife = true;
@@ -449,24 +404,46 @@ int main(int argc, char* args[])
 		}
 		n++;
 		if (n > 7)
-			n = 0;
-		/*	for (auto &a : pos)
+			n = 0;*/
+		if (SDL_GetTicks() - enemyTime > REFRESH_TIME)
 		{
-		if (a.ifbe&&a.iflife)
-		{
-		a.iflife = true;
-		//a.enemy.Randomcolor();
-		a.enemy.x = a.x;
-		a.enemy.y = a.y;
-		a.enemy.SetLive();
-		a.enemy.TextureRenderer(renderer, clip2, a.x, a.y + 400);
-		}
-		}*/
 
+			enemyCount++;
+			SDL_Enemy enemy;
+			int x = rand() % 4;
+			int y = rand() % 2;
+			enemy.loadImage(renderer, "PopSprite.png");
+			enemy.setSprite(4, 100, 100);
+			enemy.randomEnemyColor();
+			enemy.setSpritePosition(posX[x] , posY[y]);
+			enemy.setEnemySpeed(enemySpeed);
+			if (score > 1000)
+			{
+				enemy.setEnemySpeed(score / 1000 + enemyBaseSpeed);
+			}
+			enemy.setEnemyAi();
+			enemy.setEnemyLive();
+			enemy.textureRendererColor(renderer);
+			pos.push_back(enemy);
+			enemyTime = SDL_GetTicks();
+		}
 		/*ÎÄ×Ö*/
 		TextureRenderer(renderer, textexture, 25, 0, 100, 50);
 
 		for (auto &a : pos)
+		{
+			a.moveEnemy();
+			//a.enemy.MoveEnemyAi();
+			a.textureRendererColor(renderer);
+			if (a.ifOverScene())
+			{
+				a.setEnemyDead();
+				enemyCount--;
+			}
+		}
+	
+
+		/*for (auto &a : pos)
 		{
 			if (a.iflife&&a.enemy.ifEnemyLive())
 			{
@@ -480,7 +457,7 @@ int main(int argc, char* args[])
 					a.enemy.setEnemyDead();
 				}
 			}
-		}
+		}*/
 
 		if (hero.ifHeroLive())
 		{
@@ -488,25 +465,22 @@ int main(int argc, char* args[])
 
 			for (auto &a : pos)
 			{
-				if (a.iflife)
+				if (a.ifEnemyLive())
 				{
-					if (CheckCollide(a.enemy, hero))
+					if (CheckCollide(a, hero))
 					{
-						if (a.enemy.getEnemyColorFlag() == hero.getHeroColorFlag())
+						if (a.getEnemyColorFlag() == hero.getHeroColorFlag())
 						{
 							score += 100;
 							textexture = RenderText(font, renderer, "Score: ", score, 50);
 							hero.randomHeroColordiff();
-							a.ifbe = false;
-							a.iflife = false;
-							a.time = -1;
+							enemyCount--;
+							a.setEnemyDead();
 							//boom.TextureRenderer(renderer, a.enemy.x, a.enemy.y);
 						}
 						else
 						{
 							hero.randomHeroColordiff();
-							a.ifbe = false;
-							a.iflife = false;
 							hero.setHeroDead();
 							//quite = true;
 						}
@@ -514,6 +488,21 @@ int main(int argc, char* args[])
 				}
 			}
 		}
+
+		for (auto a = pos.begin(); a != pos.end();)
+		{
+			if (pos.empty())
+				break;
+			if (!a->ifEnemyLive())
+			{
+				pos.erase(a);
+			}
+			else
+			{
+				a++;
+			}
+		}
+
 		//pop.TextureRenderer(renderer, pop.x-50, pop.y-50);
 		SDL_RenderPresent(renderer);
 		if (SDL_GetTicks() - framestart < 1000 / FRAMES_PER_SECOND)
@@ -539,7 +528,7 @@ int main(int argc, char* args[])
 					if (e.button.button == SDL_BUTTON_LEFT)
 					{
 						SDL_GetMouseState(&mouseX, &mouseY);
-						double l = sqrt(pow((240 - mouseX), 2) + pow((320 - mouseY), 2));
+						double l = sqrt(pow((SCREEN_WIDTH / 2 - mouseX), 2) + pow((SCREEN_HIGHT / 2 - mouseY), 2));
 						if (l <= 50)
 						{
 							int heroX = 0;
@@ -568,36 +557,13 @@ int main(int argc, char* args[])
 							start = SDL_GetTicks();
 							score = 0;
 							begin = true;
-							for (auto &a : pos)
-							{
-								a.ifbe = false;
-								a.iflife = false;
-								a.enemy.setEnemyDead();
-							}
+							pos.clear();
+							enemyTime = SDL_GetTicks();
+							enemyCount = 0;
+							textexture = RenderText(font, renderer, "Score: ", score, 50);
 						}
 					}
 				}
-				/*if (e.type = SDL_MOUSEBUTTONDOWN)
-				{
-				if (e.button.button == SDL_BUTTON_LEFT)
-				{
-				SDL_GetMouseState(&mouseX, &mouseY);
-				double l = sqrt(pow((240 - mouseX), 2) + pow((320 - mouseY), 2));
-				if (l <= 50)
-				{
-				SDL_GetMouseState(&(pop.x), &(pop.y));
-				SDL_GetMouseState(&(hero.x), &(hero.y));
-				SDL_RenderClear(renderer);
-				ScollBackground(renderer, &bg, &bg2);
-				begin_2.TextureRenderer(renderer, SCREEN_WIDTH / 2 - begin_2.getWidth() / 2, SCREEN_HIGHT / 2 - begin_2.getHight() / 2);
-				hero.SetLive();
-				hero.Randomcolor();
-				SDL_RenderPresent(renderer);
-				start = SDL_GetTicks();
-				begin = true;
-				}
-				}
-				}*/
 			}
 
 			SDL_RenderClear(renderer);
