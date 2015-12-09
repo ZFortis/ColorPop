@@ -55,14 +55,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>G:\SDL2_image-2.0.0\include;G:\SDL2-2.0.4\include;G:\SDL2_ttf-2.0.12\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\SDL2_mixer-2.0.0\include;G:\SDL2_image-2.0.0\include;G:\SDL2-2.0.4\include;G:\SDL2_ttf-2.0.12\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>G:\SDL2_ttf-2.0.12\lib\x86;G:\SDL2_image-2.0.0\lib\x86;G:\SDL2-2.0.4\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.Lib;SDL2_image.Lib;SDL2_ttf.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>G:\SDL2_mixer-2.0.0\lib\x86;G:\SDL2_ttf-2.0.12\lib\x86;G:\SDL2_image-2.0.0\lib\x86;G:\SDL2-2.0.4\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.Lib;SDL2_image.Lib;SDL2_ttf.Lib;SDL2_mixer.Lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,12 +86,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SDL_Background.cpp" />
+    <ClCompile Include="SDL_EffectSound.cpp" />
     <ClCompile Include="SDL_Enemy.cpp" />
     <ClCompile Include="SDL_Hero.cpp" />
     <ClCompile Include="SDL_Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDL_Background.h" />
+    <ClInclude Include="SDL_EffectSound.h" />
     <ClInclude Include="SDL_Enemy.h" />
     <ClInclude Include="SDL_Hero.h" />
     <ClInclude Include="SDL_Sprite.h" />

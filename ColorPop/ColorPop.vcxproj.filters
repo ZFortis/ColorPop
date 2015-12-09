@@ -30,6 +30,9 @@
     <ClCompile Include="SDL_Background.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SDL_EffectSound.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDL_Sprite.h">
@@ -42,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SDL_Background.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_EffectSound.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

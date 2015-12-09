@@ -1,5 +1,6 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include"SDL_mixer.h"
 #include"SDL_image.h"
 #include"SDL_Sprite.h"
 #include "SDL_Hero.h"
@@ -10,6 +11,7 @@
 #include<time.h>
 #include<cmath>
 #include"SDL_Enemy.h"
+#include "SDL_EffectSound.h"
 #include "SDL_background.h"
 
 using namespace std;
@@ -94,6 +96,7 @@ int main(int argc, char* args[])
 	SDL_Hero hero;
 	SDL_Event e;
 	SDL_Background cbg,cbg1,cbg2;
+	SDL_EffectSound bubbleSound;
 	Uint32 start = 0;
 	int cbgStart = 0;
 	/*position pos[8];
@@ -127,6 +130,9 @@ int main(int argc, char* args[])
 	bool quite = false;
 	bool begin = false;
 	SDL_CaptureMouse(SDL_TRUE);
+	/*º”‘ÿ≈›≈›∆∆¡—…˘“Ù*/
+	bubbleSound.loadSound("269583__ifrosta__bubble.wav");
+
 	/*º”‘ÿæ´¡ÈÕº*/
 	hero.loadImage(renderer, "PopSprite.png");
 	hero.setSprite(4, 100, 100);
@@ -469,6 +475,7 @@ int main(int argc, char* args[])
 				{
 					if (CheckCollide(a, hero))
 					{
+						bubbleSound.playSound();
 						if (a.getEnemyColorFlag() == hero.getHeroColorFlag())
 						{
 							score += 100;
