@@ -57,6 +57,7 @@ int main(int argc, char* args[])
 	int posflag[4];
 	int n = 0;
 	SDL_Init(SDL_INIT_EVERYTHING);
+	Mix_Init(MIX_INIT_MP3);
 	if (TTF_Init() != 0)
 	{
 		return 0;
