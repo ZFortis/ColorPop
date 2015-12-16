@@ -1,4 +1,4 @@
-#include "SDL_background.h"
+#include "SDL_Background.h"
 
 
 SDL_Background::SDL_Background()

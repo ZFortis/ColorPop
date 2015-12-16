@@ -89,14 +89,18 @@
     <ClCompile Include="SDL_EffectSound.cpp" />
     <ClCompile Include="SDL_Enemy.cpp" />
     <ClCompile Include="SDL_Hero.cpp" />
+    <ClCompile Include="SDL_MyGame.cpp" />
     <ClCompile Include="SDL_Sprite.cpp" />
+    <ClCompile Include="SDL_Word.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDL_Background.h" />
     <ClInclude Include="SDL_EffectSound.h" />
     <ClInclude Include="SDL_Enemy.h" />
     <ClInclude Include="SDL_Hero.h" />
+    <ClInclude Include="SDL_MyGame.h" />
     <ClInclude Include="SDL_Sprite.h" />
+    <ClInclude Include="SDL_Word.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

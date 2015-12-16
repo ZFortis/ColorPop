@@ -1,4 +1,4 @@
-
+#pragma once
 #include "SDL_Sprite.h"
 class SDL_Background :
 	public SDL_Sprite

@@ -33,6 +33,12 @@
     <ClCompile Include="SDL_EffectSound.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SDL_Word.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL_MyGame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDL_Sprite.h">
@@ -48,6 +54,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SDL_EffectSound.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Word.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_MyGame.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
