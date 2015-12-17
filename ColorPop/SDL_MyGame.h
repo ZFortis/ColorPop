@@ -13,7 +13,7 @@
 #include<cmath>
 #include"SDL_Enemy.h"
 #include"SDL_EffectSound.h"
-#include"SDL_background.h"
+#include"SDL_Background.h"
 #include"SDL_Word.h"
 using namespace std;
 
@@ -36,6 +36,7 @@ protected:
 	static const int SCREEN_HIGHT;
 	static const int ENEMY_BASE_CONST;
 	static const int ENEMY_BASE_SPEED;
+	static const int BACKGROUND_FRASH;
 
 	SDL_Window*window;
 	SDL_Renderer*renderer;
@@ -65,5 +66,7 @@ protected:
 	int posX[4];
 	int posY[2];
 	vector<SDL_Enemy> vecEnemy;
+	SDL_Background background;
+
 };
 

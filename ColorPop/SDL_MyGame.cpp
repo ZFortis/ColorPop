@@ -16,6 +16,7 @@ const int SDL_MyGame::SCREEN_WIDTH = 480;
 const int SDL_MyGame::SCREEN_HIGHT = 640;
 const int SDL_MyGame::ENEMY_BASE_CONST = 3;
 const int SDL_MyGame::ENEMY_BASE_SPEED = 6;
+const int SDL_MyGame::BACKGROUND_FRASH = 100;
 
 void SDL_MyGame::initGame()
 {
@@ -24,7 +25,7 @@ void SDL_MyGame::initGame()
 	TTF_Init();
 	window = SDL_CreateWindow("ColorPop", 500, 100, SCREEN_WIDTH, SCREEN_HIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	timeStart = 0;
+	timeStart = SDL_GetTicks();
 	frame = 0;
 	framestart = 0;
 	score = 0;
@@ -32,11 +33,11 @@ void SDL_MyGame::initGame()
 	enemyCount = 0;
 	enemySpeed = ENEMY_BASE_SPEED;
 	enemyBaseMaxCount = 0;
-	int enemyMaxCount = ENEMY_BASE_CONST;
-	int mouseX = 0;
-	int mouseY = 0;
-	bool quite = false;
-	bool begin = false;
+	enemyMaxCount = ENEMY_BASE_CONST;
+	mouseX = 0;
+	mouseY = 0;
+	quite = false;
+	begin = false;
 	SDL_CaptureMouse(SDL_TRUE);
 	for (int i = 0; i < 4; i++)
 	{
@@ -46,6 +47,7 @@ void SDL_MyGame::initGame()
 	{
 		posY[i] = (i+1) * -105;
 	}
+	background.setRect(0, 0, 480, 640);
 
 }
 void SDL_MyGame::loadResources()
@@ -123,7 +125,6 @@ void SDL_MyGame::gameMainLoop()
 							hero.setHeroLive();
 							hero.randomHeroColor();
 							SDL_RenderPresent(renderer);
-							timeStart = SDL_GetTicks();
 							score = 0;
 							begin = true;
 							enemyTime = SDL_GetTicks();
@@ -145,13 +146,19 @@ void SDL_MyGame::gameMainLoop()
 				cbg.colorChangeBackground(renderer);
 				cbgStart = SDL_GetTicks();
 			}*/
+		//	background.colorChangeBackground(renderer);
 			begin_1.textureRenderer(renderer, SCREEN_WIDTH / 2 - begin_1.getWidth() / 2, SCREEN_HIGHT / 2 - begin_1.getHight() / 2);
 			logo.textureRenderer(renderer, SCREEN_WIDTH / 2 - begin_1.getWidth() / 2 - 100, SCREEN_HIGHT / 2 - begin_1.getHight() / 2 - 100);
 			SDL_RenderPresent(renderer);
+			if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
+			{
+				background.colorChangeBackground(renderer);
+				timeStart = SDL_GetTicks();
+			}
 			if (SDL_GetTicks() - framestart < 1000 / FRAMES_PER_SECOND)
 			{
-
 				SDL_Delay((1000 / FRAMES_PER_SECOND) - (SDL_GetTicks() - framestart));
+				framestart = SDL_GetTicks();
 			}
 		}
 
@@ -325,6 +332,11 @@ void SDL_MyGame::gameMainLoop()
 		n++;
 		if (n > 7)
 		n = 0;*/
+		if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
+		{
+			background.colorChangeBackground(renderer);
+			timeStart = SDL_GetTicks();
+		}
 		if (SDL_GetTicks() - enemyTime > REFRESH_TIME)
 		{
 			enemyCount++;
@@ -478,7 +490,6 @@ void SDL_MyGame::gameMainLoop()
 							hero.setHeroLive();
 							hero.randomHeroColor();
 							SDL_RenderPresent(renderer);
-							timeStart = SDL_GetTicks();
 							score = 0;
 							begin = true;
 							vecEnemy.clear();
@@ -509,6 +520,11 @@ void SDL_MyGame::gameMainLoop()
 				cbg.colorChangeBackground(renderer);
 				cbgStart = SDL_GetTicks();
 			}*/
+			if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
+			{
+				background.colorChangeBackground(renderer);
+				timeStart = SDL_GetTicks();
+			}
 			restart.textureRenderer(renderer, SCREEN_WIDTH / 2 - restart.getWidth() / 2 + 20, SCREEN_HIGHT / 2 - restart.getHight() / 2);
 			word.setFontPosition(180, 190);
 			word.setFontSize(150, 100);	
