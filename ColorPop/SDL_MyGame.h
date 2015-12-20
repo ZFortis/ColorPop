@@ -28,6 +28,7 @@ public:
 
 protected:
 	bool checkCollide();
+	void scollBackground(int speed);
 
 protected:
 	static const int REFRESH_TIME;
@@ -50,6 +51,8 @@ protected:
 	SDL_Event e;
 	SDL_EffectSound bubbleSound;
 	Uint32 timeStart;
+	SDL_Background bg1;
+	SDL_Background bg2;
 	int frame;
 	int framestart;
 	int score;

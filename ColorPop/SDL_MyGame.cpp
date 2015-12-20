@@ -56,7 +56,7 @@ void SDL_MyGame::loadResources()
 	bubbleSound.loadSound("269583__ifrosta__bubble.wav");
 
 	/*加载精灵图*/
-	hero.loadImage(renderer, "PopSprite.png");
+	hero.loadImage(renderer, "bubbleSprite.png");
 	hero.setSprite(4, 100, 100);
 
 	/*加载“结束”图标*/
@@ -72,6 +72,11 @@ void SDL_MyGame::loadResources()
 	/*加载文字*/
 	word.loadFont("consola.ttf", 50);
 	word.renderText(renderer, "score:", 50);
+
+	bg1.loadImage(renderer, "black_3.png");
+	bg2.loadImage(renderer, "black_4.png");
+	bg1.setRect(0, 0, 480, 640);
+	bg2.setRect(0, -640, 480, 640);
 }
 
 bool SDL_MyGame::checkCollide()
@@ -90,6 +95,18 @@ bool SDL_MyGame::checkCollide()
 		return true;
 	}
 	return false;
+}
+
+void SDL_MyGame::scollBackground(int speed)
+{
+	bg1.setSpritePosition(bg1.getPosX(), bg1.getPosY() + speed - 1);
+	bg2.setSpritePosition(bg2.getPosX(), bg2.getPosY() + speed - 1);
+	bg1.textureRenderer(renderer);
+	bg2.textureRenderer(renderer);
+	if (bg1.getPosY() >= 640)
+		bg1.setRect(bg1.getPosX(), -640, bg1.getWidth(), bg1.getHight());
+	if (bg2.getPosY() >= 640)
+		bg2.setRect(bg2.getPosX(), -640, bg2.getWidth(), bg2.getHight());
 }
 
 void SDL_MyGame::gameMainLoop()
@@ -147,14 +164,20 @@ void SDL_MyGame::gameMainLoop()
 				cbgStart = SDL_GetTicks();
 			}*/
 		//	background.colorChangeBackground(renderer);
+			//background.scollBackground(renderer, bg1, bg2);
+			scollBackground(enemySpeed);
 			begin_1.textureRenderer(renderer, SCREEN_WIDTH / 2 - begin_1.getWidth() / 2, SCREEN_HIGHT / 2 - begin_1.getHight() / 2);
 			logo.textureRenderer(renderer, SCREEN_WIDTH / 2 - begin_1.getWidth() / 2 - 100, SCREEN_HIGHT / 2 - begin_1.getHight() / 2 - 100);
+			
 			SDL_RenderPresent(renderer);
-			if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
+			/*if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
 			{
 				background.colorChangeBackground(renderer);
 				timeStart = SDL_GetTicks();
-			}
+			}*/
+			//background.scollBackground(renderer, bg1, bg2);
+			bg1.textureRenderer(renderer);
+			bg2.textureRenderer(renderer);
 			if (SDL_GetTicks() - framestart < 1000 / FRAMES_PER_SECOND)
 			{
 				SDL_Delay((1000 / FRAMES_PER_SECOND) - (SDL_GetTicks() - framestart));
@@ -332,18 +355,20 @@ void SDL_MyGame::gameMainLoop()
 		n++;
 		if (n > 7)
 		n = 0;*/
-		if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
+		/*if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
 		{
 			background.colorChangeBackground(renderer);
 			timeStart = SDL_GetTicks();
-		}
+		}*/
+scollBackground(enemySpeed);
+
 		if (SDL_GetTicks() - enemyTime > REFRESH_TIME)
 		{
 			enemyCount++;
 			SDL_Enemy enemy;
 			int x = rand() % 4;
 			int y = rand() % 2;
-			enemy.loadImage(renderer, "PopSprite.png");
+			enemy.loadImage(renderer, "bubbleSprite.png");
 			enemy.setSprite(4, 100, 100);
 			enemy.randomEnemyColor();
 			enemy.setSpritePosition(posX[x], posY[y]);
@@ -520,11 +545,12 @@ void SDL_MyGame::gameMainLoop()
 				cbg.colorChangeBackground(renderer);
 				cbgStart = SDL_GetTicks();
 			}*/
-			if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
+			/*if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
 			{
 				background.colorChangeBackground(renderer);
 				timeStart = SDL_GetTicks();
-			}
+			}*/
+			scollBackground(enemySpeed);
 			restart.textureRenderer(renderer, SCREEN_WIDTH / 2 - restart.getWidth() / 2 + 20, SCREEN_HIGHT / 2 - restart.getHight() / 2);
 			word.setFontPosition(180, 190);
 			word.setFontSize(150, 100);	

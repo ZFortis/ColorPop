@@ -72,12 +72,12 @@ void SDL_Background::colorChange()
 
 void SDL_Background::scollBackground(SDL_Renderer*renderer, SDL_Background bg1, SDL_Background bg2)
 {
-	bg1.y += 5;
-	bg2.y += 5;
+	bg1.setSpritePosition(bg1.getPosX(), bg1.getPosY() + 5);
+	bg2.setSpritePosition(bg2.getPosX(), bg2.getPosY() + 5);
 	bg1.textureRenderer(renderer);
 	bg2.textureRenderer(renderer);
-	if (bg1.y >= 1280)
-		bg1.y = -1280;
-	if (bg2.y >= 1280)
-		bg2.y = -1280;
+	if (bg1.getPosY() >= 640)
+		bg1.setRect(bg1.getPosX(),-640,bg1.getWidth(),bg1.getHight());
+	if (bg2.getPosY() >= 640)
+		bg2.setRect(bg2.getPosX(), -640, bg2.getWidth(), bg2.getHight());
 }
