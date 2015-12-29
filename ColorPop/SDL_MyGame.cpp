@@ -38,7 +38,6 @@ void SDL_MyGame::initGame()
 	mouseY = 0;
 	quite = false;
 	begin = false;
-	SDL_CaptureMouse(SDL_TRUE);
 	for (int i = 0; i < 4; i++)
 	{
 		posX[i] = i * 105;
@@ -48,7 +47,6 @@ void SDL_MyGame::initGame()
 		posY[i] = (i+1) * -105;
 	}
 	background.setRect(0, 0, 480, 640);
-
 }
 void SDL_MyGame::loadResources()
 {
@@ -111,6 +109,7 @@ void SDL_MyGame::scollBackground(int speed)
 
 void SDL_MyGame::gameMainLoop()
 {
+	SDL_CaptureMouse(SDL_TRUE);
 	string text = word.changeIntToString(score);
 	text = "Score:  " + text;
 	word.renderText(renderer, text, 50);
@@ -199,168 +198,8 @@ void SDL_MyGame::gameMainLoop()
 
 		/*»æÖÆ*/
 		SDL_RenderClear(renderer);
-		/*for (int i = 0; i < 3; i++)
-		{
-		posflag[i] = rondom();
-		if (!pos[posflag[i]].iflife)
-		{
-		if (posflag[i] > 0 && posflag[i] < 3)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i] + 1].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] + 3].ifbe&&!pos[posflag[i] + 4].ifbe&&!pos[posflag[i] + 5].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		}
-		}
-		else
-		{
-		if (posflag[i] == 0)
-		{
-		if (!pos[posflag[i] + 1].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] + 4].ifbe&&!pos[posflag[i] + 5].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		if (posflag[i] == 3)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] + 3].ifbe&&!pos[posflag[i] + 4].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		}
-		if (posflag[i] > 4 && posflag[i] < 7)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i] + 1].ifbe&&!pos[posflag[i]].ifbe&& !pos[posflag[i] - 3].ifbe&&!pos[posflag[i] - 4].ifbe&&!pos[posflag[i] - 5].ifbe)
-		{
-		if (!pos[posflag[i] + 3].ifbe&&!pos[posflag[i] + 4].ifbe&&!pos[posflag[i] + 5].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		}
-		else
-		{
-		if (posflag[i] == 4)
-		{
-		if (!pos[posflag[i] + 1].ifbe&&!pos[posflag[i]].ifbe&& !pos[posflag[i] - 4].ifbe&&!pos[posflag[i] - 3].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] + 4].ifbe&&!pos[posflag[i] + 5].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		if (posflag[i] == 7)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i]].ifbe&& !pos[posflag[i] - 5].ifbe && !pos[posflag[i] - 4].ifbe&&!pos[posflag[i] + 3].ifbe&&!pos[posflag[i] + 4].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		}
-		if (posflag[i] > 8 && posflag[i] < 11)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i] + 1].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] - 3].ifbe&&!pos[posflag[i] - 4].ifbe&&!pos[posflag[i] - 5].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		}
-		}
-		else
-		{
-		if (posflag[i] == 8)
-		{
-		if (!pos[posflag[i] + 1].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] - 4].ifbe&&!pos[posflag[i] -3].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		if (posflag[i] == 11)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i]].ifbe&&!pos[posflag[i] - 5].ifbe&&!pos[posflag[i] - 4].ifbe)
-		pos[posflag[i]].ifbe = true;
-		}
-		}
-		}
-		}*/
 
-
-		/*if (cbgStart == 0)
-		{
-			//cbg.colorChange(renderer);
-			cbg.colorChangeBackground(renderer);
-			cbgStart = SDL_GetTicks();
-		}
-
-		if (SDL_GetTicks() - cbgStart >= 200)
-		{
-			//cbg.colorChange(renderer);
-			cbg.colorChangeBackground(renderer);
-			cbgStart = SDL_GetTicks();
-		}*/
-
-		/*for (int i = 0; i < 3; i++)
-		{
-		posflag[i] = rondom();
-		cout << posflag[i] << endl;
-		if (!pos[posflag[i]].iflife&&!pos[posflag[i]].ifbe)
-		{
-		if (posflag[i] == 0)
-		{
-		if (!pos[posflag[i] + 1].ifbe&&!pos[posflag[i] + 2].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		pos[posflag[i]].time = SDL_GetTicks();
-		}
-		}
-		else if (posflag[i] == 1)
-		{
-		if (!pos[posflag[i] - 1].ifbe&&!pos[posflag[i] + 1].ifbe&&!pos[posflag[i] + 2].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		pos[posflag[i]].time = SDL_GetTicks();
-		}
-		}
-		else if (posflag[i]>1 && posflag[i] < 6)
-		{
-		if (!pos[posflag[i] - 2].ifbe&&!pos[posflag[i] - 1].ifbe&&!pos[posflag[i] + 1].ifbe&&!pos[posflag[i] + 2].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		pos[posflag[i]].time = SDL_GetTicks();
-		}
-		}
-		else if (posflag[i] == 6)
-		{
-		if (!pos[posflag[i] - 2].ifbe&&!pos[posflag[i] - 1].ifbe&&!pos[posflag[i] + 1].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		pos[posflag[i]].time = SDL_GetTicks();
-		}
-		}
-		else if (posflag[i] == 7)
-		{
-		if (!pos[posflag[i] - 2].ifbe&&!pos[posflag[i] - 1].ifbe)
-		{
-		pos[posflag[i]].ifbe = true;
-		pos[posflag[i]].time = SDL_GetTicks();
-		}
-		}
-		}
-		}*/
-
-		/*	if (pos[n].ifbe&&!pos[n].iflife)
-		{
-		cout << "................................................." << endl;
-		pos[n].iflife = true;
-		pos[n].enemy.randomEnemyColor();
-		pos[n].enemy.setSpritePosition(pos[n].x - 55, pos[n].y);
-		pos[n].enemy.setEnemySpeed(6);
-		if (score > 1000)
-		{
-		pos[n].enemy.setEnemySpeed(score / 1000 + 6);
-		}
-		pos[n].enemy.setEnemyAi();
-		pos[n].enemy.setEnemyLive();
-		if (SDL_GetTicks() - pos[n].time >= 1000)
-		{
-		pos[n].ifbe = false;
-		}
-		//pos[n].enemy.textureRenderer(renderer, clip2, pos[n].x, pos[n].y);
-		pos[n].enemy.textureRendererColor(renderer);
-		}
-		n++;
-		if (n > 7)
-		n = 0;*/
-		/*if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
-		{
-			background.colorChangeBackground(renderer);
-			timeStart = SDL_GetTicks();
-		}*/
-scollBackground(enemySpeed);
+		scollBackground(enemySpeed);
 
 		if (SDL_GetTicks() - enemyTime > REFRESH_TIME)
 		{
@@ -392,7 +231,6 @@ scollBackground(enemySpeed);
 		for (auto &a : vecEnemy)
 		{
 			a.moveEnemy();
-			//a.enemy.MoveEnemyAi();
 			a.textureRendererColor(renderer);
 			if (a.ifOverScene())
 			{
@@ -400,23 +238,6 @@ scollBackground(enemySpeed);
 				enemyCount--;
 			}
 		}
-
-
-		/*for (auto &a : pos)
-		{
-		if (a.iflife&&a.enemy.ifEnemyLive())
-		{
-		a.enemy.moveEnemy();
-		//a.enemy.MoveEnemyAi();
-		a.enemy.textureRendererColor(renderer);
-		if (a.enemy.ifOverScene())
-		{
-		a.ifbe = false;
-		a.iflife = false;
-		a.enemy.setEnemyDead();
-		}
-		}
-		}*/
 		
 		if (hero.ifHeroLive())
 		{
@@ -497,21 +318,7 @@ scollBackground(enemySpeed);
 							SDL_GetMouseState(&heroX, &heroY);
 							hero.setSpritePosition(heroX - 50, heroY - 50);
 							SDL_RenderClear(renderer);
-							//ScollBackground(renderer, &bg, &bg2);
-							//ScollBackground(renderer, &cbg1, &cbg2);
-							/*if (cbgStart == 0)
-							{
-								//cbg.colorChange(renderer);
-								cbg.colorChangeBackground(renderer);
-								cbgStart = SDL_GetTicks();
-							}
-
-							if (SDL_GetTicks() - cbgStart >= 200)
-							{
-								//cbg.colorChange(renderer);
-								cbg.colorChangeBackground(renderer);
-								cbgStart = SDL_GetTicks();
-							}*/
+							
 							hero.setHeroLive();
 							hero.randomHeroColor();
 							SDL_RenderPresent(renderer);
@@ -523,33 +330,13 @@ scollBackground(enemySpeed);
 							string text = word.changeIntToString(score);
 							text = "Score:  " + text;
 							word.renderText(renderer, text, 50);
-							//textexture = RenderText(font, renderer, "Score: ", score, 50);
 						}
 					}
 				}
 			}
 
 			SDL_RenderClear(renderer);
-			//ScollBackground(renderer, &bg, &bg2);
-			//ScollBackground(renderer, &cbg1, &cbg2);
-			/*if (cbgStart == 0)
-			{
-				//cbg.colorChange(renderer);
-				cbg.colorChangeBackground(renderer);
-				cbgStart = SDL_GetTicks();
-			}
-
-			if (SDL_GetTicks() - cbgStart >= 200)
-			{
-				//cbg.colorChange(renderer);
-				cbg.colorChangeBackground(renderer);
-				cbgStart = SDL_GetTicks();
-			}*/
-			/*if (SDL_GetTicks() - timeStart >= BACKGROUND_FRASH)
-			{
-				background.colorChangeBackground(renderer);
-				timeStart = SDL_GetTicks();
-			}*/
+			
 			scollBackground(enemySpeed);
 			restart.textureRenderer(renderer, SCREEN_WIDTH / 2 - restart.getWidth() / 2 + 20, SCREEN_HIGHT / 2 - restart.getHight() / 2);
 			word.setFontPosition(180, 190);
@@ -558,8 +345,7 @@ scollBackground(enemySpeed);
 			text = "Score:  " + text;
 			word.renderText(renderer, text, 50);
 			word.textureRenderer(renderer);
-			//textextureend = RenderText(font, renderer, "Your Score: ", score, 100);
-			//TextureRenderer(renderer, textexture, 180, 190, 150, 100);
+
 			SDL_RenderPresent(renderer);
 			if (SDL_GetTicks() - framestart < 1000 / FRAMES_PER_SECOND)
 			{
